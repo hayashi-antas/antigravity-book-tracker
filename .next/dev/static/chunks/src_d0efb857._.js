@@ -10,6 +10,17 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$e
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$middleware$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/zustand/esm/middleware.mjs [app-client] (ecmascript)");
 ;
 ;
+const GENRES = [
+    'Fiction',
+    'Non-Fiction',
+    'Sci-Fi',
+    'Fantasy',
+    'Mystery',
+    'Biography',
+    'History',
+    'Technology',
+    'Self-Help'
+];
 const useBookStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$react$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["create"])()((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$middleware$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["persist"])((set)=>({
         books: [],
         addBook: (book)=>set((state)=>({
@@ -36,7 +47,36 @@ const useBookStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
                             ...b,
                             status
                         } : b)
-                }))
+                })),
+        generateDummyData: ()=>set((state)=>{
+                const newBooks = Array.from({
+                    length: 20
+                }, (_, i)=>{
+                    const status = [
+                        'WANT_TO_READ',
+                        'READING',
+                        'COMPLETED'
+                    ][Math.floor(Math.random() * 3)];
+                    const totalPages = Math.floor(Math.random() * 500) + 100;
+                    return {
+                        id: crypto.randomUUID(),
+                        title: `Book Title ${state.books.length + i + 1}`,
+                        author: `Author Name ${Math.floor(Math.random() * 100)}`,
+                        status,
+                        genre: GENRES[Math.floor(Math.random() * GENRES.length)],
+                        pageCount: totalPages,
+                        currentPage: status === 'COMPLETED' ? totalPages : status === 'WANT_TO_READ' ? 0 : Math.floor(Math.random() * totalPages),
+                        rating: status === 'COMPLETED' ? Math.floor(Math.random() * 5) + 1 : undefined,
+                        addedAt: new Date().toISOString()
+                    };
+                });
+                return {
+                    books: [
+                        ...state.books,
+                        ...newBooks
+                    ]
+                };
+            })
     }), {
     name: 'book-storage'
 }));

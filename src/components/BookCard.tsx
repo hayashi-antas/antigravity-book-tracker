@@ -44,7 +44,14 @@ export function BookCard({ book }: BookCardProps) {
         <div className="flex justify-between items-start">
           <div>
             <CardTitle className="line-clamp-2 leading-tight" title={book.title}>{book.title}</CardTitle>
-            <p className="text-sm text-stone-500 dark:text-stone-400 mt-1 line-clamp-1">{book.author}</p>
+            <div className="flex flex-wrap items-center gap-2 mt-1">
+              <p className="text-sm text-stone-500 dark:text-stone-400 line-clamp-1">{book.author}</p>
+              {book.genre && (
+                <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-400">
+                  {book.genre}
+                </span>
+              )}
+            </div>
           </div>
           <span className={clsx('inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium shrink-0', statusConfig[book.status].color)}>
             {statusConfig[book.status].icon}

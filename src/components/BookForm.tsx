@@ -5,6 +5,7 @@ import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 import { useBookStore } from '@/store/useBookStore';
 import { Book, BookStatus } from '@/types';
+import { GENRES } from '@/lib/constants';
 import { useState, useEffect } from 'react';
 
 const bookSchema = z.object({
@@ -12,6 +13,7 @@ const bookSchema = z.object({
   author: z.string().min(1, 'Author is required'),
   pageCount: z.number().min(0, 'Page count must be positive'),
   status: z.enum(['WANT_TO_READ', 'READING', 'COMPLETED'] as const),
+  genre: z.string().min(1, 'Genre is required'),
 });
 
 type BookFormData = z.infer<typeof bookSchema>;
@@ -32,16 +34,16 @@ export function BookForm({ initialData, onSuccess, onCancel }: BookFormProps) {
     formState: { errors },
     reset,
   } = useForm<BookFormData>({
-    resolver: zodResolver(bookSchema),
+    resolver: zodResolver(bookSchema) as any,
     defaultValues: {
       title: initialData?.title || '',
       author: initialData?.author || '',
       pageCount: initialData?.pageCount || 0,
       status: initialData?.status || 'WANT_TO_READ',
+      genre: initialData?.genre || GENRES[0],
     },
   });
 
-  // Reset form when initialData changes (if reusing component instance)
   useEffect(() => {
     if (initialData) {
       reset({
@@ -49,13 +51,13 @@ export function BookForm({ initialData, onSuccess, onCancel }: BookFormProps) {
         author: initialData.author,
         pageCount: initialData.pageCount || 0,
         status: initialData.status,
+        genre: initialData.genre || GENRES[0],
       });
     }
   }, [initialData, reset]);
 
   const onSubmit = (data: BookFormData) => {
     setLoading(true);
-    // Simulate slight delay for UX
     setTimeout(() => {
       if (initialData) {
         updateBook(initialData.id, {
@@ -69,6 +71,7 @@ export function BookForm({ initialData, onSuccess, onCancel }: BookFormProps) {
           status: data.status,
           pageCount: data.pageCount || 0,
           currentPage: 0,
+          genre: data.genre,
         });
       }
 
@@ -81,17 +84,13 @@ export function BookForm({ initialData, onSuccess, onCancel }: BookFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="space-y-2">
-        <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-          Title
-        </label>
+        <label className="text-sm font-medium leading-none">Title</label>
         <Input placeholder="Enter book title" {...register('title')} />
         {errors.title && <p className="text-sm text-red-500">{errors.title.message}</p>}
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-          Author
-        </label>
+        <label className="text-sm font-medium leading-none">Author</label>
         <Input placeholder="Enter author name" {...register('author')} />
         {errors.author && <p className="text-sm text-red-500">{errors.author.message}</p>}
       </div>
@@ -106,16 +105,28 @@ export function BookForm({ initialData, onSuccess, onCancel }: BookFormProps) {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium leading-none">Status</label>
+          <label className="text-sm font-medium leading-none">Genre</label>
           <select
             className="flex h-10 w-full rounded-md border border-stone-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-950 disabled:cursor-not-allowed disabled:opacity-50 dark:border-stone-800 dark:bg-stone-950 dark:ring-offset-stone-950 dark:focus-visible:ring-stone-300"
-            {...register('status')}
+            {...register('genre')}
           >
-            <option value="WANT_TO_READ">Want to Read</option>
-            <option value="READING">Reading</option>
-            <option value="COMPLETED">Completed</option>
+            {GENRES.map(g => (
+              <option key={g} value={g}>{g}</option>
+            ))}
           </select>
         </div>
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium leading-none">Status</label>
+        <select
+          className="flex h-10 w-full rounded-md border border-stone-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-950 disabled:cursor-not-allowed disabled:opacity-50 dark:border-stone-800 dark:bg-stone-950 dark:ring-offset-stone-950 dark:focus-visible:ring-stone-300"
+          {...register('status')}
+        >
+          <option value="WANT_TO_READ">Want to Read</option>
+          <option value="READING">Reading</option>
+          <option value="COMPLETED">Completed</option>
+        </select>
       </div>
 
       <div className="flex justify-end gap-2 pt-4">

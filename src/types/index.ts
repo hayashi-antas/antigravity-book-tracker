@@ -12,5 +12,6 @@ export interface Book {
   startedAt?: string; // ISO date string
   completedAt?: string; // ISO date string
   notes?: string;
+  genre: string;
   addedAt: string;
 }
