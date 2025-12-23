@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { toast } from 'react-hot-toast';
 import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 import { useBookStore } from '@/store/useBookStore';
@@ -58,27 +59,35 @@ export function BookForm({ initialData, onSuccess, onCancel }: BookFormProps) {
 
   const onSubmit = (data: BookFormData) => {
     setLoading(true);
+    // Simulate network delay for effect
     setTimeout(() => {
-      if (initialData) {
-        updateBook(initialData.id, {
-          ...data,
-          pageCount: data.pageCount || 0,
-        });
-      } else {
-        addBook({
-          title: data.title,
-          author: data.author,
-          status: data.status,
-          pageCount: data.pageCount || 0,
-          currentPage: 0,
-          genre: data.genre,
-        });
-      }
+      try {
+        if (initialData) {
+          updateBook(initialData.id, {
+            ...data,
+            pageCount: data.pageCount || 0,
+          });
+          toast.success('Book updated successfully');
+        } else {
+          addBook({
+            title: data.title,
+            author: data.author,
+            status: data.status,
+            pageCount: data.pageCount || 0,
+            currentPage: 0,
+            genre: data.genre,
+          });
+          toast.success('Book added to library');
+        }
 
-      if (!initialData) reset();
-      setLoading(false);
-      onSuccess?.();
-    }, 300);
+        if (!initialData) reset();
+        onSuccess?.();
+      } catch (error) {
+        toast.error('Something went wrong');
+      } finally {
+        setLoading(false);
+      }
+    }, 500);
   };
 
   return (

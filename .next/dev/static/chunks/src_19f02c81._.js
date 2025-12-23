@@ -161,117 +161,64 @@ const useBookStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
                         } : b)
                 })),
         generateDummyData: ()=>set((state)=>{
-                const REALISTIC_BOOKS = [
+                const SEED_BOOKS = [
                     {
-                        title: "The Great Gatsby",
-                        author: "F. Scott Fitzgerald"
-                    },
-                    {
-                        title: "To Kill a Mockingbird",
-                        author: "Harper Lee"
-                    },
-                    {
-                        title: "1984",
-                        author: "George Orwell"
-                    },
-                    {
-                        title: "Pride and Prejudice",
-                        author: "Jane Austen"
-                    },
-                    {
-                        title: "The Catcher in the Rye",
-                        author: "J.D. Salinger"
-                    },
-                    {
-                        title: "Project Hail Mary",
-                        author: "Andy Weir"
-                    },
-                    {
-                        title: "The Pragmatic Programmer",
-                        author: "Andrew Hunt"
-                    },
-                    {
-                        title: "Clean Code",
-                        author: "Robert C. Martin"
-                    },
-                    {
-                        title: "Sapiens",
-                        author: "Yuval Noah Harari"
-                    },
-                    {
-                        title: "Atomic Habits",
-                        author: "James Clear"
-                    },
-                    {
-                        title: "Dune",
-                        author: "Frank Herbert"
-                    },
-                    {
-                        title: "Thinking, Fast and Slow",
-                        author: "Daniel Kahneman"
-                    },
-                    {
-                        title: "Deep Work",
-                        author: "Cal Newport"
-                    },
-                    {
-                        title: "The Hobbit",
-                        author: "J.R.R. Tolkien"
-                    },
-                    {
-                        title: "Harry Potter and the Sorcerer's Stone",
-                        author: "J.K. Rowling"
+                        title: "The Little Prince",
+                        author: "Antoine de Saint-Exupéry",
+                        genre: "Fiction",
+                        status: "COMPLETED",
+                        rating: 5,
+                        review: "A beautiful, timeless story that reminds us of what truly matters."
                     },
                     {
                         title: "The Alchemist",
-                        author: "Paulo Coelho"
+                        author: "Paulo Coelho",
+                        genre: "Fiction",
+                        status: "READING",
+                        rating: undefined
                     },
                     {
-                        title: "Educated",
-                        author: "Tara Westover"
-                    },
-                    {
-                        title: "Becoming",
-                        author: "Michelle Obama"
+                        title: "Atomic Habits",
+                        author: "James Clear",
+                        genre: "Self-Help",
+                        status: "WANT_TO_READ",
+                        rating: undefined
                     },
                     {
                         title: "Steve Jobs",
-                        author: "Walter Isaacson"
+                        author: "Walter Isaacson",
+                        genre: "Biography",
+                        status: "COMPLETED",
+                        rating: 5,
+                        review: "A fascinating look into the life of a visionary."
                     },
                     {
-                        title: "The Design of Everyday Things",
-                        author: "Don Norman"
+                        title: "Sapiens",
+                        author: "Yuval Noah Harari",
+                        genre: "History",
+                        status: "READING",
+                        rating: undefined
+                    },
+                    {
+                        title: "Project Hail Mary",
+                        author: "Andy Weir",
+                        genre: "Sci-Fi",
+                        status: "WANT_TO_READ",
+                        rating: undefined
                     }
                 ];
-                // Import here to avoid circular dependencies if any, or use the locally defined one if preferred.
-                // We will use a local genre list for simplicity or the string literals.
-                const GENRE_LIST = [
-                    'Fiction',
-                    'Non-Fiction',
-                    'Sci-Fi',
-                    'Fantasy',
-                    'Mystery',
-                    'Biography',
-                    'History',
-                    'Technology',
-                    'Self-Help'
-                ];
-                const newBooks = REALISTIC_BOOKS.map((b, i)=>{
-                    const status = [
-                        'WANT_TO_READ',
-                        'READING',
-                        'COMPLETED'
-                    ][Math.floor(Math.random() * 3)];
-                    const totalPages = Math.floor(Math.random() * 400) + 150;
+                const newBooks = SEED_BOOKS.map((b)=>{
+                    const totalPages = Math.floor(Math.random() * 300) + 100;
                     return {
                         id: crypto.randomUUID(),
                         title: b.title,
                         author: b.author,
-                        status,
-                        genre: GENRE_LIST[Math.floor(Math.random() * GENRE_LIST.length)],
+                        status: b.status,
+                        genre: b.genre,
                         pageCount: totalPages,
-                        currentPage: status === 'COMPLETED' ? totalPages : status === 'WANT_TO_READ' ? 0 : Math.floor(Math.random() * totalPages),
-                        rating: status === 'COMPLETED' ? Math.floor(Math.random() * 5) + 1 : undefined,
+                        currentPage: b.status === 'COMPLETED' ? totalPages : b.status === 'WANT_TO_READ' ? 0 : Math.floor(Math.random() * totalPages),
+                        rating: b.rating,
+                        review: b.review,
                         addedAt: new Date().toISOString()
                     };
                 });
@@ -322,6 +269,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hook$2d$form$2f$dist$2f$index$2e$esm$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hook-form/dist/index.esm.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$hookform$2f$resolvers$2f$zod$2f$dist$2f$zod$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@hookform/resolvers/zod/dist/zod.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zod$2f$v4$2f$classic$2f$schemas$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/zod/v4/classic/schemas.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hot-toast/dist/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/Button.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/Input.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$store$2f$useBookStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/store/useBookStore.ts [app-client] (ecmascript)");
@@ -329,6 +277,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$constants$2e$t
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
+;
 ;
 ;
 ;
@@ -380,26 +329,34 @@ function BookForm({ initialData, onSuccess, onCancel }) {
     ]);
     const onSubmit = (data)=>{
         setLoading(true);
+        // Simulate network delay for effect
         setTimeout(()=>{
-            if (initialData) {
-                updateBook(initialData.id, {
-                    ...data,
-                    pageCount: data.pageCount || 0
-                });
-            } else {
-                addBook({
-                    title: data.title,
-                    author: data.author,
-                    status: data.status,
-                    pageCount: data.pageCount || 0,
-                    currentPage: 0,
-                    genre: data.genre
-                });
+            try {
+                if (initialData) {
+                    updateBook(initialData.id, {
+                        ...data,
+                        pageCount: data.pageCount || 0
+                    });
+                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Book updated successfully');
+                } else {
+                    addBook({
+                        title: data.title,
+                        author: data.author,
+                        status: data.status,
+                        pageCount: data.pageCount || 0,
+                        currentPage: 0,
+                        genre: data.genre
+                    });
+                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success('Book added to library');
+                }
+                if (!initialData) reset();
+                onSuccess?.();
+            } catch (error) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error('Something went wrong');
+            } finally{
+                setLoading(false);
             }
-            if (!initialData) reset();
-            setLoading(false);
-            onSuccess?.();
-        }, 300);
+        }, 500);
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
         onSubmit: handleSubmit(onSubmit),
@@ -413,7 +370,7 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                         children: "Title"
                     }, void 0, false, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 87,
+                        lineNumber: 96,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -421,7 +378,7 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                         ...register('title')
                     }, void 0, false, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 88,
+                        lineNumber: 97,
                         columnNumber: 9
                     }, this),
                     errors.title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -429,13 +386,13 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                         children: errors.title.message
                     }, void 0, false, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 89,
+                        lineNumber: 98,
                         columnNumber: 26
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/BookForm.tsx",
-                lineNumber: 86,
+                lineNumber: 95,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -446,7 +403,7 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                         children: "Author"
                     }, void 0, false, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 93,
+                        lineNumber: 102,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -454,7 +411,7 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                         ...register('author')
                     }, void 0, false, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 94,
+                        lineNumber: 103,
                         columnNumber: 9
                     }, this),
                     errors.author && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -462,13 +419,13 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                         children: errors.author.message
                     }, void 0, false, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 95,
+                        lineNumber: 104,
                         columnNumber: 27
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/BookForm.tsx",
-                lineNumber: 92,
+                lineNumber: 101,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -482,7 +439,7 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                                 children: "Pages"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/BookForm.tsx",
-                                lineNumber: 100,
+                                lineNumber: 109,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
@@ -493,13 +450,13 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                                 })
                             }, void 0, false, {
                                 fileName: "[project]/src/components/BookForm.tsx",
-                                lineNumber: 101,
+                                lineNumber: 110,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 99,
+                        lineNumber: 108,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -510,7 +467,7 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                                 children: "Genre"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/BookForm.tsx",
-                                lineNumber: 108,
+                                lineNumber: 117,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -521,24 +478,24 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                                         children: g
                                     }, g, false, {
                                         fileName: "[project]/src/components/BookForm.tsx",
-                                        lineNumber: 114,
+                                        lineNumber: 123,
                                         columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/BookForm.tsx",
-                                lineNumber: 109,
+                                lineNumber: 118,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 107,
+                        lineNumber: 116,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/BookForm.tsx",
-                lineNumber: 98,
+                lineNumber: 107,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -549,7 +506,7 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                         children: "Status"
                     }, void 0, false, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 121,
+                        lineNumber: 130,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -561,7 +518,7 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                                 children: "Want to Read"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/BookForm.tsx",
-                                lineNumber: 126,
+                                lineNumber: 135,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -569,7 +526,7 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                                 children: "Reading"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/BookForm.tsx",
-                                lineNumber: 127,
+                                lineNumber: 136,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -577,19 +534,19 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                                 children: "Completed"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/BookForm.tsx",
-                                lineNumber: 128,
+                                lineNumber: 137,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 122,
+                        lineNumber: 131,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/BookForm.tsx",
-                lineNumber: 120,
+                lineNumber: 129,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -603,7 +560,7 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                         children: "Cancel"
                     }, void 0, false, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 134,
+                        lineNumber: 143,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -612,19 +569,19 @@ function BookForm({ initialData, onSuccess, onCancel }) {
                         children: initialData ? 'Save Changes' : 'Add Book'
                     }, void 0, false, {
                         fileName: "[project]/src/components/BookForm.tsx",
-                        lineNumber: 138,
+                        lineNumber: 147,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/BookForm.tsx",
-                lineNumber: 132,
+                lineNumber: 141,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/BookForm.tsx",
-        lineNumber: 85,
+        lineNumber: 94,
         columnNumber: 5
     }, this);
 }

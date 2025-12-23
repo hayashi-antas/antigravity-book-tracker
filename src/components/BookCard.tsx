@@ -6,6 +6,7 @@ import { Trash2, BookOpen, CheckCircle, Clock, Edit2 } from 'lucide-react';
 import { clsx } from 'clsx';
 import { useState } from 'react';
 import { BookForm } from './BookForm';
+import Link from 'next/link';
 
 interface BookCardProps {
   book: Book;
@@ -42,8 +43,10 @@ export function BookCard({ book }: BookCardProps) {
     <Card className="flex flex-col h-full hover:shadow-md transition-shadow group">
       <CardHeader>
         <div className="flex justify-between items-start">
-          <div>
-            <CardTitle className="line-clamp-2 leading-tight" title={book.title}>{book.title}</CardTitle>
+          <div className="flex-1">
+            <Link href={`/books/${book.id}`} className="hover:underline decoration-stone-400 underline-offset-4 block w-fit">
+              <CardTitle className="line-clamp-2 leading-tight" title={book.title}>{book.title}</CardTitle>
+            </Link>
             <div className="flex flex-wrap items-center gap-2 mt-1">
               <p className="text-sm text-stone-500 dark:text-stone-400 line-clamp-1">{book.author}</p>
               {book.genre && (
@@ -53,9 +56,8 @@ export function BookCard({ book }: BookCardProps) {
               )}
             </div>
           </div>
-          <span className={clsx('inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium shrink-0', statusConfig[book.status].color)}>
+          <span className={clsx('inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium shrink-0 ml-2', statusConfig[book.status].color)}>
             {statusConfig[book.status].icon}
-            {/* Shorten label on mobile if needed, but flex wrap handles it */}
           </span>
         </div>
       </CardHeader>
