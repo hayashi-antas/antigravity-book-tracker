@@ -44,28 +44,48 @@ export const useBookStore = create<BookState>()(
         })),
       generateDummyData: () =>
         set((state) => {
-          const SEED_BOOKS = [
-            { title: "The Little Prince", author: "Antoine de Saint-Exupéry", genre: "Fiction", status: "COMPLETED", rating: 5, review: "A beautiful, timeless story that reminds us of what truly matters." },
-            { title: "The Alchemist", author: "Paulo Coelho", genre: "Fiction", status: "READING", rating: undefined },
-            { title: "Atomic Habits", author: "James Clear", genre: "Self-Help", status: "WANT_TO_READ", rating: undefined },
-            { title: "Steve Jobs", author: "Walter Isaacson", genre: "Biography", status: "COMPLETED", rating: 5, review: "A fascinating look into the life of a visionary." },
-            { title: "Sapiens", author: "Yuval Noah Harari", genre: "History", status: "READING", rating: undefined },
-            { title: "Project Hail Mary", author: "Andy Weir", genre: "Sci-Fi", status: "WANT_TO_READ", rating: undefined }
+          const TITLES = [
+            "The Great Gatsby", "To Kill a Mockingbird", "1984", "Pride and Prejudice",
+            "The Catcher in the Rye", "Project Hail Mary", "The Pragmatic Programmer",
+            "Clean Code", "Sapiens", "Atomic Habits", "Dune", "Thinking, Fast and Slow",
+            "Deep Work", "The Hobbit", "Harry Potter", "The Alchemist", "Educated",
+            "Becoming", "Steve Jobs", "Design of Everyday Things", "Zero to One",
+            "The Lean Startup", "Refactoring", "Code Complete", "Design Patterns",
+            "Head First Java", "Introduction to Algorithms", "The Mythical Man-Month",
+            "Cracking the Coding Interview", "Soft Skills"
           ];
 
-          const newBooks: Book[] = SEED_BOOKS.map((b) => {
-            const totalPages = Math.floor(Math.random() * 300) + 100;
+          const AUTHORS = [
+            "F. Scott Fitzgerald", "Harper Lee", "George Orwell", "Jane Austen",
+            "J.D. Salinger", "Andy Weir", "Andrew Hunt", "Robert C. Martin",
+            "Yuval Noah Harari", "James Clear", "Frank Herbert", "Daniel Kahneman",
+            "Cal Newport", "J.R.R. Tolkien", "J.K. Rowling", "Paulo Coelho",
+            "Tara Westover", "Michelle Obama", "Walter Isaacson", "Don Norman",
+            "Peter Thiel", "Eric Ries", "Martin Fowler", "Steve McConnell"
+          ];
+
+          const GENRES = ['Fiction', 'Non-Fiction', 'Sci-Fi', 'Fantasy', 'Mystery', 'Biography', 'History', 'Technology', 'Self-Help'];
+
+          const newBooks: Book[] = Array.from({ length: 50 }).map((_, i) => {
+            const titleIndex = i % TITLES.length;
+            const authorIndex = i % AUTHORS.length;
+
+            const title = i < TITLES.length ? TITLES[titleIndex] : `${TITLES[titleIndex]} (Vol. ${Math.floor(i / TITLES.length) + 1})`;
+            const author = AUTHORS[authorIndex];
+
+            const status = ['WANT_TO_READ', 'READING', 'COMPLETED'][Math.floor(Math.random() * 3)] as BookStatus;
+            const totalPages = Math.floor(Math.random() * 400) + 100;
+
             return {
               id: crypto.randomUUID(),
-              title: b.title,
-              author: b.author,
-              status: b.status as BookStatus,
-              genre: b.genre,
+              title,
+              author,
+              status,
+              genre: GENRES[Math.floor(Math.random() * GENRES.length)],
               pageCount: totalPages,
-              currentPage: b.status === 'COMPLETED' ? totalPages : b.status === 'WANT_TO_READ' ? 0 : Math.floor(Math.random() * totalPages),
-              rating: b.rating,
-              review: b.review,
-              addedAt: new Date().toISOString(),
+              currentPage: status === 'COMPLETED' ? totalPages : status === 'WANT_TO_READ' ? 0 : Math.floor(Math.random() * totalPages),
+              rating: status === 'COMPLETED' ? Math.floor(Math.random() * 5) + 1 : undefined,
+              addedAt: new Date(Date.now() - Math.floor(Math.random() * 10000000000)).toISOString(),
             };
           });
           return { books: [...state.books, ...newBooks] };
